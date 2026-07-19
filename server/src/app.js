@@ -3,6 +3,9 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes.js";
 
+import session from "express-session";
+import passport from "./config/passport.js";
+
 const app = express();
 
 // Core middleware
@@ -15,6 +18,18 @@ app.use(
 app.use(express.json({ limit: "10mb" })); // resumes as text can be long
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+
+app.use(
+  session({
+    secret: process.env.JWT_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 
 // Health check route (sanity test)
