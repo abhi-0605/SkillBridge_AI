@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 
@@ -15,13 +16,15 @@ app.use(express.json({ limit: "10mb" })); // resumes as text can be long
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+
 // Health check route (sanity test)
 app.get("/api/health", (req, res) => {
   res.status(200).json({ status: "ok", message: "SkillBridge_AI API is running" });
 });
 
-// Routes will be mounted here later:
-// app.use("/api/auth", authRoutes);
+// Routes will be mounted here 
+app.use("/api/auth", authRoutes);
+
 // app.use("/api/resume", resumeRoutes);
 // app.use("/api/jd", jdRoutes);
 // app.use("/api/analysis", analysisRoutes);
