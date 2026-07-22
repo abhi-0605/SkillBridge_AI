@@ -5,6 +5,7 @@ import RegisterPage from './pages/RegisterPage.jsx'
 import DashboardPage from './pages/DashboardPage.jsx'
 import ProtectedRoute from './components/common/ProtectedRoute.jsx'
 import DashboardLayout from './components/layout/DashboardLayout.jsx'
+import UploadPage from './pages/UploadPage.jsx'
 
 function App() {
   return (
@@ -19,9 +20,12 @@ function App() {
           <ProtectedRoute>
             <DashboardLayout />
           </ProtectedRoute>
+
         }
       >
         <Route index element={<DashboardPage />} />
+        
+        <Route path="upload" element={<UploadPage />} />
       </Route>
     </Routes>
   )
