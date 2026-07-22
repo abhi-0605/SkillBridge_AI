@@ -1,29 +1,20 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../store/AuthContext.jsx'
 
 const DashboardPage = () => {
-    const {user,logout} = useAuth()
-    const navigate= useNavigate()
+    const {user} =useAuth()
 
-    const handleLogout = () => {
-        logout()
-        navigate('/login')
-    }
+    
 
     return(
-        <div className='min-h-dvh flex flex-col items-center justify-center gap-4 bg-background text-foreground' >
-            <h1 className='text-3xl font-bold' >
-                Welcome, <span className='gradient-text' >{user?.name || 'User'}</span>
+        <div>
+            <p className='text-xs uppercase tracking-[0.3em] text-muted-foreground' >Welcome back</p>
+            <h1 className='mt-2 text-3xl font-bold md:text-4xl' >
+                Hi {user?.name?.split(' ')[0]}, ready to <span className='gradient-text' >get started?</span>
             </h1>
-            <p className='text-muted-foreground' >
-                {user?.email}
-            </p >
-            <button
-                onClick={logout} className='cursor-pointer rounded-xl boder border-border bg-white/5 px-5 py-2.5 text-sm hover:bg-white/10'
-            >
-                Logout
-            </button>
+            <p className='mt-2 text-sm text-muted-foreground' >
+                Upload a resume and a job description to run your first analysis.
+            </p>
         </div>
     )
 
