@@ -11,6 +11,8 @@ import jdRoutes from "./routes/jdRoutes.js";
 
 import testRoutes from "./routes/testRoutes.js";
 
+import analysisRoutes from "./routes/analysisRoutes.js";
+
 const app = express();
 
 // Core middleware
@@ -52,7 +54,9 @@ app.use("/api/jd", jdRoutes);
 // Test route for AI response
 app.use("/api/test", testRoutes);
 
-// app.use("/api/analysis", analysisRoutes);
+
+// Analysis routes
+app.use("/api/analysis", analysisRoutes);
 
 // 404 handler
 app.use((req, res) => {
