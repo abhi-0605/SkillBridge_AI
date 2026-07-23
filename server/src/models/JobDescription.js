@@ -17,7 +17,7 @@ const jobDescriptionSchema = new mongoose.Schema(
             trim: true,
             default: null,
         },
-        rawdata: {
+        rawText: {
             type: String,
             required: [true, "Job description text is required"],
         },
@@ -36,3 +36,7 @@ const jobDescriptionSchema = new mongoose.Schema(
     }
 
 )
+
+const JobDescription = mongoose.model('JobDescription', jobDescriptionSchema);
+
+export default JobDescription;

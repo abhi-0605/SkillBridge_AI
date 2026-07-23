@@ -57,15 +57,18 @@ const UploadPage = () => {
     setSubmitError('')
 
     try {
-      await api.post('/resume', {
+      const resumeRes = await api.post('/resume', {
         fileName: resumeMode === 'file' ? file?.name : 'Pasted resume',
         fileType: resumeMode === 'file' ? file?.name.split('.').pop() : 'pdf',
         rawText: finalResumeText,
       })
 
-      await api.post('/jd', {
+      const jdRes = await api.post('/jd', {
         rawText: jd,
       })
+
+      console.log('Resume saved:', resumeRes.data.data._id)
+      console.log('JD saved:', jdRes.data.data._id)
 
       navigate('/dashboard/reports')
     } catch (err) {
@@ -196,11 +199,10 @@ const UploadPage = () => {
             disabled={!canSubmit || submitting}
             whileHover={{ scale: canSubmit && !submitting ? 1.01 : 1 }}
             whileTap={{ scale: canSubmit && !submitting ? 0.98 : 1 }}
-            className={`mt-5 flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium transition ${
-              canSubmit && !submitting
+            className={`mt-5 flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium transition ${canSubmit && !submitting
                 ? 'cursor-pointer gradient-primary text-white shadow-lg shadow-primary/30 hover:shadow-primary/60'
                 : 'cursor-not-allowed bg-white/5 text-muted-foreground'
-            }`}
+              }`}
           >
             {submitting ? 'Saving...' : 'Run AI analysis'}
           </motion.button>

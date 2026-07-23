@@ -16,9 +16,9 @@ const resumeSchema = new mongoose.Schema(
             enum: ['pdf', 'docx'],
             required: true,
         },
-        rawdata: {
+        rawText: {
             type: String,
-            required: [ true, "Extracted resume text is required" ],
+            required: [true, 'Extracted resume text is required'],
         },
         parsedData: {
 
@@ -30,7 +30,7 @@ const resumeSchema = new mongoose.Schema(
             enum: ['uploaded', 'parsed', 'failed'],
             default: 'uploaded',
         },
-    
+
     },
     {
         timestamps: true,

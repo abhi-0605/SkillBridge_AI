@@ -6,6 +6,11 @@ import authRoutes from "./routes/authRoutes.js";
 import session from "express-session";
 import passport from "./config/passport.js";
 
+import resumeRoutes from "./routes/resumeRoutes.js";
+import jdRoutes from "./routes/jdRoutes.js";
+
+import testRoutes from "./routes/testRoutes.js";
+
 const app = express();
 
 // Core middleware
@@ -40,8 +45,13 @@ app.get("/api/health", (req, res) => {
 // Routes will be mounted here 
 app.use("/api/auth", authRoutes);
 
-// app.use("/api/resume", resumeRoutes);
-// app.use("/api/jd", jdRoutes);
+// Resume and Job Description routes
+app.use("/api/resume", resumeRoutes);
+app.use("/api/jd", jdRoutes);
+
+// Test route for AI response
+app.use("/api/test", testRoutes);
+
 // app.use("/api/analysis", analysisRoutes);
 
 // 404 handler
