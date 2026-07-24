@@ -9,7 +9,7 @@ import passport from "./config/passport.js";
 import resumeRoutes from "./routes/resumeRoutes.js";
 import jdRoutes from "./routes/jdRoutes.js";
 
-// import testRoutes from "./routes/testRoutes.js";
+
 
 import analysisRoutes from "./routes/analysisRoutes.js";
 
@@ -51,8 +51,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/resume", resumeRoutes);
 app.use("/api/jd", jdRoutes);
 
-// Test route for AI response
-// app.use("/api/test", testRoutes);
+
+
 
 
 // Analysis routes

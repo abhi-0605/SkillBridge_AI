@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { CheckCircle2, FileText, Upload, X, ClipboardList } from 'lucide-react'
 import { extractResumeText } from '../lib/extractResumeText.js'
-
 import api from '../lib/axios.js'
 import { runAnalysis } from '../features/analysis/analysisApi.js'
 
@@ -15,6 +14,8 @@ const UploadPage = () => {
   const [parseError, setParseError] = useState('')
   const [pastedResume, setPastedResume] = useState('')
   const [jd, setJd] = useState('')
+  const [jdTitle, setJdTitle] = useState('')
+  const [jdCompany, setJdCompany] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState('')
 
@@ -66,6 +67,8 @@ const UploadPage = () => {
       })
 
       const jdRes = await api.post('/jd', {
+        title: jdTitle.trim() || null,
+        company: jdCompany.trim() || null,
         rawText: jd,
       })
 
@@ -185,11 +188,29 @@ const UploadPage = () => {
             </span>
             <h2 className="font-semibold">Job description</h2>
           </div>
+
+          <div className="mb-3 grid grid-cols-2 gap-3">
+            <input
+              type="text"
+              value={jdTitle}
+              onChange={(e) => setJdTitle(e.target.value)}
+              placeholder="Job title (optional)"
+              className="rounded-xl border border-border bg-white/[0.03] px-3 py-2 text-sm outline-none placeholder:text-muted-foreground focus:border-primary/60"
+            />
+            <input
+              type="text"
+              value={jdCompany}
+              onChange={(e) => setJdCompany(e.target.value)}
+              placeholder="Company (optional)"
+              className="rounded-xl border border-border bg-white/[0.03] px-3 py-2 text-sm outline-none placeholder:text-muted-foreground focus:border-primary/60"
+            />
+          </div>
+
           <textarea
             value={jd}
             onChange={(e) => setJd(e.target.value)}
             placeholder="Paste the job description here..."
-            className="h-64 w-full resize-none rounded-2xl border border-border bg-white/[0.03] p-4 text-sm outline-none placeholder:text-muted-foreground focus:border-primary/60"
+            className="h-56 w-full resize-none rounded-2xl border border-border bg-white/[0.03] p-4 text-sm outline-none placeholder:text-muted-foreground focus:border-primary/60"
           />
           <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
             <span>{jd.length.toLocaleString()} / 20,000 characters</span>
@@ -204,10 +225,11 @@ const UploadPage = () => {
             disabled={!canSubmit || submitting}
             whileHover={{ scale: canSubmit && !submitting ? 1.01 : 1 }}
             whileTap={{ scale: canSubmit && !submitting ? 0.98 : 1 }}
-            className={`mt-5 flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium transition ${canSubmit && !submitting
-              ? 'cursor-pointer gradient-primary text-white shadow-lg shadow-primary/30 hover:shadow-primary/60'
-              : 'cursor-not-allowed bg-white/5 text-muted-foreground'
-              }`}
+            className={`mt-5 flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium transition ${
+              canSubmit && !submitting
+                ? 'cursor-pointer gradient-primary text-white shadow-lg shadow-primary/30 hover:shadow-primary/60'
+                : 'cursor-not-allowed bg-white/5 text-muted-foreground'
+            }`}
           >
             {submitting ? 'Analyzing... this takes 20-40 seconds' : 'Run AI analysis'}
           </motion.button>

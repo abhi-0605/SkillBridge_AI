@@ -10,6 +10,8 @@ import UploadPage from './pages/UploadPage.jsx'
 import ReportsPage from './pages/ReportsPage.jsx'
 import AnalysisDetailPage from './pages/AnalysisDetailPage.jsx'
 
+import ProfilePage from './pages/ProfilePage.jsx'
+
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
 
         <Route path="reports" element={<ReportsPage />} />
         <Route path="analysis/:id" element={<AnalysisDetailPage />} />
+
+        <Route path="profile" element={<ProfilePage />} />
       </Route>
     </Routes>
   )
