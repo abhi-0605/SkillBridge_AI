@@ -56,6 +56,8 @@ export const createAnalysis = async (req, res) => {
             resumeText: resume.rawText,
         });
 
+        // console.log("ATS RESULT:", JSON.stringify(atsResult, null, 2));
+
 
         const reportResult = await generateReport({
             atsScore: atsResult.overall,

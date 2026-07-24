@@ -27,7 +27,7 @@ const analysisSchema = new mongoose.Schema(
             extraSkills: [{ type: String }], // Skills present in resume but not in job description
         },
         atsScore: {
-            overallScore: { type: Number, min: 0, max: 100, default: null },
+            overall: { type: Number, min: 0, max: 100, default: null },
             breakdown: {
                 keywordMatch: { type: Number, default: null },
                 skillMatch: { type: Number, default: null },
