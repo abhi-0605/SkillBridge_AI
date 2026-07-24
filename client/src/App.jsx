@@ -7,6 +7,10 @@ import ProtectedRoute from './components/common/ProtectedRoute.jsx'
 import DashboardLayout from './components/layout/DashboardLayout.jsx'
 import UploadPage from './pages/UploadPage.jsx'
 
+import ReportsPage from './pages/ReportsPage.jsx'
+import AnalysisDetailPage from './pages/AnalysisDetailPage.jsx'
+
+
 function App() {
   return (
     <Routes>
@@ -22,10 +26,14 @@ function App() {
           </ProtectedRoute>
 
         }
+
       >
         <Route index element={<DashboardPage />} />
-        
+
         <Route path="upload" element={<UploadPage />} />
+
+        <Route path="reports" element={<ReportsPage />} />
+        <Route path="analysis/:id" element={<AnalysisDetailPage />} />
       </Route>
     </Routes>
   )

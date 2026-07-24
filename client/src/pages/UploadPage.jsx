@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { CheckCircle2, FileText, Upload, X, ClipboardList } from 'lucide-react'
 import { extractResumeText } from '../lib/extractResumeText.js'
+
 import api from '../lib/axios.js'
+import { runAnalysis } from '../features/analysis/analysisApi.js'
 
 const UploadPage = () => {
   const [resumeMode, setResumeMode] = useState('file') // 'file' | 'paste'
@@ -67,10 +69,13 @@ const UploadPage = () => {
         rawText: jd,
       })
 
-      console.log('Resume saved:', resumeRes.data.data._id)
-      console.log('JD saved:', jdRes.data.data._id)
+      const resumeId = resumeRes.data.data._id
+      const jdId = jdRes.data.data._id
 
-      navigate('/dashboard/reports')
+      const analysisRes = await runAnalysis({ resumeId, jdId })
+      const analysisId = analysisRes.data.analysis._id
+
+      navigate(`/dashboard/analysis/${analysisId}`)
     } catch (err) {
       setSubmitError(err.response?.data?.message || 'Something went wrong. Please try again.')
     } finally {
@@ -200,11 +205,11 @@ const UploadPage = () => {
             whileHover={{ scale: canSubmit && !submitting ? 1.01 : 1 }}
             whileTap={{ scale: canSubmit && !submitting ? 0.98 : 1 }}
             className={`mt-5 flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium transition ${canSubmit && !submitting
-                ? 'cursor-pointer gradient-primary text-white shadow-lg shadow-primary/30 hover:shadow-primary/60'
-                : 'cursor-not-allowed bg-white/5 text-muted-foreground'
+              ? 'cursor-pointer gradient-primary text-white shadow-lg shadow-primary/30 hover:shadow-primary/60'
+              : 'cursor-not-allowed bg-white/5 text-muted-foreground'
               }`}
           >
-            {submitting ? 'Saving...' : 'Run AI analysis'}
+            {submitting ? 'Analyzing... this takes 20-40 seconds' : 'Run AI analysis'}
           </motion.button>
         </div>
       </div>
