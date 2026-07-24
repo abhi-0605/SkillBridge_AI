@@ -22,5 +22,5 @@ export const getCurrentUser = async()=>{
     return res.data;
 }
 
-export const googleAuthUrl = 'http://localhost:5000/api/auth/google'
+export const googleAuthUrl = `${import.meta.env.VITE_API_URL || 'http://localhost:5000/api'}/auth/google`
 
