@@ -41,6 +41,7 @@ export const createAnalysis = async (req, res) => {
             resume: resume._id,
             jobDescription: jd._id,
             status: "processing",
+            aiProvider: process.env.AI_PROVIDER || "ollama",
         });
 
 
