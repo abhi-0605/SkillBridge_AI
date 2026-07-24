@@ -1,19 +1,17 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import authRoutes from "./routes/authRoutes.js";
-
 import session from "express-session";
 import passport from "./config/passport.js";
 
+import authRoutes from "./routes/authRoutes.js";
 import resumeRoutes from "./routes/resumeRoutes.js";
 import jdRoutes from "./routes/jdRoutes.js";
-
-
-
 import analysisRoutes from "./routes/analysisRoutes.js";
 
 const app = express();
+
+app.set("trust proxy", 1);
 
 // Core middleware
 app.use(
@@ -26,7 +24,6 @@ app.use(express.json({ limit: "10mb" })); // resumes as text can be long
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-
 app.use(
   session({
     secret: process.env.JWT_SECRET,
@@ -37,25 +34,15 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
 // Health check route (sanity test)
 app.get("/api/health", (req, res) => {
   res.status(200).json({ status: "ok", message: "SkillBridge_AI API is running" });
 });
 
-// Routes will be mounted here 
+// Routes
 app.use("/api/auth", authRoutes);
-
-// Resume and Job Description routes
 app.use("/api/resume", resumeRoutes);
 app.use("/api/jd", jdRoutes);
-
-
-
-
-
-// Analysis routes
 app.use("/api/analysis", analysisRoutes);
 
 // 404 handler

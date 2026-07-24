@@ -12,6 +12,8 @@ import AnalysisDetailPage from './pages/AnalysisDetailPage.jsx'
 
 import ProfilePage from './pages/ProfilePage.jsx'
 
+import OAuthSuccessPage from './pages/OAuthSuccessPage.jsx'
+
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
+
+      <Route path="/oauth-success" element={<OAuthSuccessPage />} />
 
       <Route
         path="/dashboard"
