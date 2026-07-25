@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://skillbridge-ai-abhi0605.vercel.app/sitemap.xml

@@ -1,0 +1,11 @@
+# SkillBridge AI
+
+> AI-powered resume and job description analyzer that scores ATS compatibility, identifies skill gaps, and generates actionable recommendations to improve job applications.
+
+SkillBridge AI helps job seekers understand how well their resume matches a specific job description. Users upload a resume (PDF or DOCX) and paste a job description; the platform extracts keywords, matches skills, computes an ATS compatibility score, and generates an AI-written report with strengths, weaknesses, and recommendations.
+
+## Pages
+
+- [Home](https://skillbridge-ai-abhi0605.vercel.app/): Landing page describing the product and its features.
+- [Sign up](https://skillbridge-ai-abhi0605.vercel.app/register): Create a new account.
+- [Sign in](https://skillbridge-ai-abhi0605.vercel.app/login): Log in to an existing account.

@@ -6,7 +6,7 @@ const AuthShell = ({ title, sub, children, footer }) => {
     return(
 
     
-    <div className="relative min-h-dvh overflow-hidden bg-background">
+    <main className="relative min-h-dvh overflow-hidden bg-background">
       
       
       <div className="pointer-events-none absolute inset-0">
@@ -70,7 +70,7 @@ const AuthShell = ({ title, sub, children, footer }) => {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
 

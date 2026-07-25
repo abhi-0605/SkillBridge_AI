@@ -30,7 +30,7 @@ const Footer = () => {
                     </div>
 
                     <div>
-                        <h4 className='mb-4 text-sm font-semibold' >Product</h4>
+                        <h2 className='mb-4 text-sm font-semibold' >Product</h2>
                         <ul className='space-y-3 text-sm text-muted-foreground'>
                             <li><a href='#features' className='hover:text-foreground' ></a></li>
                             <li><a href='#how' className='hover:text-foreground' > How it works</a></li>
@@ -39,7 +39,7 @@ const Footer = () => {
                     </div>
 
                     <div>
-                        <h4 className='mb-4 text-sm font-semibold' >Company</h4>
+                        <h2 className='mb-4 text-sm font-semibold' >Company</h2>
                         <ul className='space-y-3 text-sm text-muted-foreground' >
                             <li><a href='#' className='hover:text-foreground' >About</a></li>
                             <li><a href='#' className='hover:text-foreground' >Privacy</a></li>
