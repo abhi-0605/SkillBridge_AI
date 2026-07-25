@@ -2,7 +2,7 @@
 
 > AI-powered resume and job description analyzer that scores ATS compatibility, identifies skill gaps, and generates actionable recommendations to improve job applications.
 
-**Live app:** [skillbridge-ai-abhi0605.vercel.app](https://skillbridge-ai-abhi0605.vercel.app)
+**Live app:** [skillbridge-ai-abhi0605.vercel.app](https://skillbridge-ai-abhi0605.vercel.app) <br>
 **Backend API:** [skillbridge-ai-e17b.onrender.com](https://skillbridge-ai-e17b.onrender.com)
 
 ---
@@ -13,10 +13,15 @@ SkillBridge AI helps job seekers understand how well their resume matches a spec
 
 ## Screenshots
 
-<!-- Add screenshots here -->
-<!-- ![Landing page](./docs/screenshots/landing.png) -->
-<!-- ![Analysis report](./docs/screenshots/analysis-report.png) -->
-<!-- ![Lighthouse SEO / Performance score](./docs/screenshots/lighthouse.png) -->
+<img width="1917" height="912" alt="Screenshot 2026-07-26 014052" src="https://github.com/user-attachments/assets/bb4776fa-a0b0-4159-8d67-ea3c36689c75" />
+
+
+
+## Score
+
+<img width="676" height="188" alt="Screenshot 2026-07-26 014026" src="https://github.com/user-attachments/assets/e0063237-ba89-41bb-ac7f-b455748726a0" />
+
+
 
 ## Core Features
 
@@ -32,8 +37,8 @@ SkillBridge AI helps job seekers understand how well their resume matches a spec
 - **Pluggable AI provider layer** — a single `generateAIResponse()` interface abstracts the underlying model. Local development uses **Ollama** (free, private, runs on-device); production uses **Groq** (fast, free-tier cloud inference) since Ollama cannot run on serverless/managed hosts. OpenAI/Claude/Gemini can be added as additional providers without touching agent code.
 
 ## Architecture
-SkillBridge_AI/
-├── client/ React + Vite (JavaScript) frontend, Tailwind CSS v4
+SkillBridge_AI/ <br>
+├── client/ React + Vite (JavaScript) frontend, Tailwind CSS v4  <br>
 ├── server/ Node.js + Express backend, MongoDB (Atlas) via Mongoose
 
 
@@ -73,27 +78,7 @@ npm install
 
 Create `server/.env`:
 
-```env
-NODE_ENV=development
-PORT=5000
 
-MONGO_URI=your_mongodb_connection_string
-JWT_SECRET=your_random_secret
-JWT_EXPIRES_IN=7d
-
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-GOOGLE_CALLBACK_URL=http://localhost:5000/api/auth/google/callback
-
-CLIENT_URL=http://localhost:5173
-
-AI_PROVIDER=ollama
-OLLAMA_BASE_URL=http://localhost:11434
-OLLAMA_MODEL=llama3.1
-
-GROQ_API_KEY=
-GROQ_MODEL=llama-3.3-70b-versatile
-```
 
 Run the server:
 
@@ -108,11 +93,6 @@ cd client
 npm install
 ```
 
-Create `client/.env`:
-
-```env
-VITE_API_URL=http://localhost:5000/api
-```
 
 Run the dev server:
 
@@ -128,14 +108,4 @@ Visit `http://localhost:5173`.
 - **Frontend (Vercel):** Root directory `client`, framework preset Vite. Environment variable `VITE_API_URL` pointed at the deployed Render API URL.
 - After deploying both, update `CLIENT_URL` (Render) and the Google Cloud Console's authorized redirect URIs/JavaScript origins to include the production URLs.
 
-## Roadmap / Not Yet Implemented
 
-- OCR support for image-based (non-text-layer) PDFs
-- Admin-only views/routes (role exists in schema, no admin UI yet)
-- PDF export of reports (currently JSON-only)
-- Editable profile (name/email update)
-- Code-splitting the frontend bundle (currently a single ~400 KB gzipped chunk)
-
-## License
-
-Personal project — no license specified yet.
