@@ -6,16 +6,21 @@ import DashboardPage from './pages/DashboardPage.jsx'
 import ProtectedRoute from './components/common/ProtectedRoute.jsx'
 import DashboardLayout from './components/layout/DashboardLayout.jsx'
 import UploadPage from './pages/UploadPage.jsx'
-
 import ReportsPage from './pages/ReportsPage.jsx'
 import AnalysisDetailPage from './pages/AnalysisDetailPage.jsx'
-
 import ProfilePage from './pages/ProfilePage.jsx'
-
 import OAuthSuccessPage from './pages/OAuthSuccessPage.jsx'
+import AppLoadingScreen from './components/common/AppLoadingScreen.jsx'
+import { useAuth } from './store/AuthContext.jsx'
 
 
 function App() {
+  const { loading, wakingUp } = useAuth()
+
+  if (loading) {
+    return <AppLoadingScreen wakingUp={wakingUp} />
+  }
+
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
