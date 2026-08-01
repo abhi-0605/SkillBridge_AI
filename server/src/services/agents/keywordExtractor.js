@@ -72,12 +72,12 @@ export const extractKeywords = async (text, label = "text") => {
 
     if (Array.isArray(parsed)) {
 
-      // Case 1: already a proper array
+      
       keywords = parsed;
 
     } else if (typeof parsed === "object" && parsed !== null) {
 
-      // Case 2: object with an array value somewhere, e.g. { "keywords": [...] }
+      
 
 
       const arrayValue = Object.values(parsed).find((v) => Array.isArray(v));
@@ -86,7 +86,7 @@ export const extractKeywords = async (text, label = "text") => {
       } else {
 
         
-        // Case 3: object where KEYS are the keywords, e.g. { "React": "react", ... }
+        
         keywords = Object.keys(parsed);
       }
     }

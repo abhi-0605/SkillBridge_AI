@@ -1,19 +1,17 @@
-// Basic formatting heuristics — things ATS systems commonly check for
-// This is deterministic logic, not AI, for the same reason skill matching isn't AI:
-// these are objective, checkable facts about the text, not something requiring language understanding
+
 
 // Weighted scoring: 40% keyword match + 40% skill match + 20% formatting — reasonable default weights; easy to tune later once you see real results.
 const scoreFormatting = (resumeText) => {
     let score = 100;
     const issues = [];
 
-    // penalty for short resumes
+    
     if (resumeText.length < 500) {
         score -= 20;
         issues.push('Resume text seems short — may be missing sections');
     }
 
-    // Check for presence of common sections
+   
     const commonSections = ["experience", "education", "skills"];
     const lowerText = resumeText.toLowerCase();
     const missingSections = commonSections.filter((s) => !lowerText.includes(s));
