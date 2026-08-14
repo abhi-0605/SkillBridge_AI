@@ -22,6 +22,9 @@ export const callGroq = async (prompt, { json = false } = {}) => {
 
     return response.data.choices[0].message.content;
   } catch (error) {
+    
+    console.error("GROQ FULL ERROR:", JSON.stringify(error.response?.data, null, 2));
+
     const details = error.response?.data?.error?.message || error.message;
     throw new Error(`Groq request failed: ${details}`);
   }
