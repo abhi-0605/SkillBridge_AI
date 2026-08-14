@@ -10,20 +10,16 @@ You are a keyword extraction engine. Extract EVERY technical/professional skill 
 Be exhaustive and literal:
 - If a skills/technology list is present (e.g. "Frontend: React.js, HTML5, CSS3"), extract EVERY individual item from that list — do not skip any, and do not summarize a list into a category word like "Frontend."
 - Use the exact term as written (e.g. "HTML5" not "HTML", "Tailwind CSS" not "CSS framework").
+- Extract only concrete, discrete skills/tools/technologies — a single word or short phrase each.
+- Do NOT extract full sentences or broad process descriptions as one item. Skip vague umbrella phrases like "software development workflows" or "production practices" entirely — only extract a specific named skill (like "Testing" or "Git") if it's clearly listed as a standalone required skill, not buried inside a descriptive sentence.
 
 Do NOT extract any of the following, even if present in the text:
-- Job titles (e.g. "Full Stack Developer", "Intern")
-- Company names
-- Locations (city, country, "Remote", "Hybrid")
-- Employment type or duration (e.g. "Internship", "3-6 months", "Full-time")
-- Experience level phrases (e.g. "Fresher", "0-1 year", "Entry level")
-- Degree names or education requirements (e.g. "B.Tech", "B.E.", "Computer Science", "IT related field")
-- Generic non-technical phrases (e.g. "hackathon projects", "team player", "good communication")
+- Job titles, company names, locations
+- Employment type, duration, or experience level (e.g. "Internship", "Fresher", "0-1 year")
+- Degree names or education requirements (e.g. "B.Tech", "Computer Science")
+- Generic non-technical phrases (e.g. "team player", "good communication")
 
-Respond with ONLY a valid JSON object in this exact format:
-{"keywords": ["React", "Node.js", "MongoDB"]}
-
-Do not add explanations or markdown. No duplicates. Limit to the 40 most relevant keywords.
+Limit to the 40 most relevant keywords. No duplicates.
 
 ${label}:
 """
@@ -31,9 +27,24 @@ ${text}
 """
 `;
 
+const KEYWORD_SCHEMA = {
+  name: "keyword_extraction",
+  schema: {
+    type: "object",
+    properties: {
+      keywords: {
+        type: "array",
+        items: { type: "string" },
+      },
+    },
+    required: ["keywords"],
+    additionalProperties: false,
+  },
+};
+
 export const extractKeywords = async (text, label = "text") => {
   const prompt = buildPrompt(text, label);
-  const raw = await generateAIResponse(prompt, { json: true });
+  const raw = await generateAIResponse(prompt, { json: true, schema: KEYWORD_SCHEMA });
 
   console.log("RAW AI RESPONSE:", raw);
 
@@ -47,11 +58,7 @@ export const extractKeywords = async (text, label = "text") => {
       keywords = parsed;
     } else if (typeof parsed === "object" && parsed !== null) {
       const arrayValue = Object.values(parsed).find((v) => Array.isArray(v));
-      if (arrayValue) {
-        keywords = arrayValue;
-      } else {
-        keywords = Object.keys(parsed);
-      }
+      keywords = arrayValue || Object.keys(parsed);
     }
 
     if (!Array.isArray(keywords)) {

@@ -2,9 +2,7 @@ import { generateAIResponse } from "../ai/aiProvider.js";
 
 const cleanJsonResponse = (raw) => {
     return raw.replace(/```json\s*/gi, "").replace(/```/g, "").trim();
-
 }
-
 
 const buildPrompt = ({ atsScore, matchedSkills, missingSkills, resumeText, jdText }) => `
 You are a career coach AI. Based on the analysis below, generate a helpful report.
@@ -32,9 +30,24 @@ Respond with ONLY valid JSON in this exact structure, no markdown, no extra text
 }
 `;
 
+const REPORT_SCHEMA = {
+    name: "analysis_report",
+    schema: {
+        type: "object",
+        properties: {
+            summary: { type: "string" },
+            strengths: { type: "array", items: { type: "string" } },
+            weaknesses: { type: "array", items: { type: "string" } },
+            recommendations: { type: "array", items: { type: "string" } },
+        },
+        required: ["summary", "strengths", "weaknesses", "recommendations"],
+        additionalProperties: false,
+    },
+};
+
 export const generateReport = async ({ atsScore, matchedSkills, missingSkills, resumeText, jdText }) => {
     const prompt = buildPrompt({ atsScore, matchedSkills, missingSkills, resumeText, jdText });
-    const raw = await generateAIResponse(prompt, { json: true });
+    const raw = await generateAIResponse(prompt, { json: true, schema: REPORT_SCHEMA });
 
     try {
         const cleaned = cleanJsonResponse(raw);
