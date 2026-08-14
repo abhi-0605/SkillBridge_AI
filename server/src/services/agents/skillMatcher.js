@@ -144,8 +144,14 @@ const ALIAS_MAP = {
   'back-end developer': 'backend development',
 
   dsa: 'data structures and algorithms',
-'data structures & algorithms': 'data structures and algorithms',
-'data structures and algorithms': 'data structures and algorithms',
+  'data structures & algorithms': 'data structures and algorithms',
+  'data structures and algorithms': 'data structures and algorithms',
+
+  api: 'api',
+  apis: 'api',
+  database: 'database',
+  databases: 'database',
+
 
 }
 
