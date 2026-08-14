@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
-const GROQ_MODEL = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
+const GROQ_MODEL = process.env.GROQ_MODEL || "llama-3.1-8b-instant";
 
 export const callGroq = async (prompt, { json = false } = {}) => {
   try {
