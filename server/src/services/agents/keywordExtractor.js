@@ -5,12 +5,17 @@ const cleanJsonResponse = (raw) => {
 };
 
 const buildPrompt = (text, label) => `
-You are a keyword extraction engine. Extract the most important professional keywords (skills, tools, technologies, certifications, role titles) from the following ${label}.
+You are a keyword extraction engine. Extract EVERY professional keyword (skills, tools, technologies, frameworks, languages, certifications, methodologies, role titles) mentioned in the following ${label}.
+
+Be exhaustive and literal:
+- If a skills/technology list is present (e.g. "Frontend: React.js, HTML5, CSS3"), extract EVERY individual item from that list — do not skip any, and do not summarize a list into a single category word like "Frontend" instead of the actual technologies.
+- Use the exact term as written (e.g. "HTML5" not "HTML", "Tailwind CSS" not "CSS framework").
+- Do not omit an item just because a similar or related item is already included.
 
 Respond with ONLY a valid JSON object in this exact format:
 {"keywords": ["React", "Node.js", "MongoDB"]}
 
-Do not add explanations or markdown. No duplicates. Limit to the 25 most relevant keywords.
+Do not add explanations or markdown. No duplicates. Limit to the 40 most relevant keywords.
 
 ${label}:
 """
