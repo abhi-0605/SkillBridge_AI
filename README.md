@@ -3,7 +3,7 @@
 > AI-powered resume and job description analyzer that scores ATS compatibility, identifies skill gaps, and generates actionable recommendations to improve job applications.
 
 **Live app:** [skillbridge-ai-abhi0605.vercel.app](https://skillbridge-ai-abhi0605.vercel.app) <br>
-**Backend API:** [skillbridge-ai-e17b.onrender.com](https://skillbridge-ai-e17b.onrender.com)
+
 
 ---
 
