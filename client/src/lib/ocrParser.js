@@ -29,7 +29,9 @@ export const extractTextviaOCR = async (file,OnProgress) =>{
             logger: (info) => {
                 if(info.status === 'recognizing text' && OnProgress){
                     const pageProgress = (i-1+info.progress)/pdf.numPages;
-                    OnProgress(info);
+                    OnProgress({...info, 
+                        progress: pageProgress
+                    });
                 }
             },
         });
