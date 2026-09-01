@@ -10,6 +10,7 @@ const UploadPage = () => {
   const [resumeMode, setResumeMode] = useState('file') // 'file' | 'paste'
   const [file, setFile] = useState(null)
   const [parsing, setParsing] = useState(false)
+  const [ocrProgress, setOcrProgress] = useState(null)
   const [parsedText, setParsedText] = useState('')
   const [parseError, setParseError] = useState('')
   const [pastedResume, setPastedResume] = useState('')
@@ -26,9 +27,12 @@ const UploadPage = () => {
     setParsedText('')
     setParseError('')
     setParsing(true)
+    setOcrProgress(null)
 
     try {
-      const { text } = await extractResumeText(selectedFile)
+      const { text,usedOCR } = await extractResumeText(selectedFile,(progress) =>{
+        setOcrProgress(progress)
+      })
       if (text.length < 50) {
         throw new Error('Very little text found. This file may be image-based — try "Paste text" instead.')
       }
@@ -37,6 +41,7 @@ const UploadPage = () => {
       setParseError(err.message || 'Failed to parse file.')
     } finally {
       setParsing(false)
+      setOcrProgress(null)
     }
   }
 
@@ -165,7 +170,14 @@ const UploadPage = () => {
                 </button>
               </div>
 
-              {parsing && <div className="mt-4 text-xs text-muted-foreground">Parsing file...</div>}
+              
+              {parsing && (
+                <div className="mt-4 text-xs text-muted-foreground"> 
+                  {ocrProgress !== null
+                  ? `Running OCR on scanned documents... ${Math.round(ocrProgress *100)}%`
+                  : 'Parsing file...'}
+                </div>
+              )}
 
               {parseError && (
                 <div className="mt-4 rounded-xl bg-danger/10 px-3 py-2 text-xs text-danger">{parseError}</div>
