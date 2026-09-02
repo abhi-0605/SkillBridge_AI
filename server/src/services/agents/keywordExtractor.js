@@ -38,7 +38,7 @@ const KEYWORD_SCHEMA = {
       },
     },
     required: ["keywords"],
-    additionalProperties: false,
+    
   },
 };
 
