@@ -23,6 +23,13 @@ const makeRequest = async (prompt, response_format) => {
   );
 };
 
+const getRetryDelay = (error) => {
+  const message = error.response?.data?.error?.message || "";
+  const waitMatch = message.match(/try again in ([\d.]+)s/i);
+  if (waitMatch) return (parseFloat(waitMatch[1]) + 0.5) * 1000;
+  return 3000; // default 3s wait for non-rate-limit errors (e.g. empty/malformed generation)
+};
+
 export const callGroq = async (prompt, { json = false, schema = null } = {}) => {
   let response_format;
 
@@ -39,26 +46,17 @@ export const callGroq = async (prompt, { json = false, schema = null } = {}) => 
     const response = await makeRequest(prompt, response_format);
     return response.data.choices[0].message.content;
   } catch (error) {
-    const errData = error.response?.data?.error;
+    console.warn("GROQ FIRST ATTEMPT FAILED, retrying once:", JSON.stringify(error.response?.data, null, 2));
 
-    // If rate-limited, parse Groq's suggested wait time and retry once
-    if (error.response?.status === 429 && errData?.message) {
-      const waitMatch = errData.message.match(/try again in ([\d.]+)s/i);
-      const waitSeconds = waitMatch ? parseFloat(waitMatch[1]) : 5;
+    const delay = getRetryDelay(error);
+    await sleep(delay);
 
-      console.warn(`Groq rate limited — retrying in ${waitSeconds}s`);
-      await sleep((waitSeconds + 0.5) * 1000);
-
-      try {
-        const retryResponse = await makeRequest(prompt, response_format);
-        return retryResponse.data.choices[0].message.content;
-      } catch (retryError) {
-        console.error("GROQ RETRY FAILED:", JSON.stringify(retryError.response?.data, null, 2));
-        throw new Error(`Groq request failed after retry: ${retryError.response?.data?.error?.message || retryError.message}`);
-      }
+    try {
+      const retryResponse = await makeRequest(prompt, response_format);
+      return retryResponse.data.choices[0].message.content;
+    } catch (retryError) {
+      console.error("GROQ RETRY ALSO FAILED:", JSON.stringify(retryError.response?.data, null, 2));
+      throw new Error(`Groq request failed after retry: ${retryError.response?.data?.error?.message || retryError.message}`);
     }
-
-    console.error("GROQ FULL ERROR:", JSON.stringify(error.response?.data, null, 2));
-    throw new Error(`Groq request failed: ${errData?.message || error.message}`);
   }
 };
