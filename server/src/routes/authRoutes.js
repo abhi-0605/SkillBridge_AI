@@ -30,17 +30,20 @@ router.get(
 );
 
 
-// GET /api/auth/google/callback
-router.get(
-  "/google/callback",
-  passport.authenticate("google", { session: false, failureRedirect: "/login" }),
-  (req, res) => {
-    const token = generateToken(req.user._id);
-    setTokenCookie(res, token);
 
-    // Redirect back to frontend with the token -> fontend will store it/ read   cookies
+
+// GET /api/auth/google/callback with error handling
+router.get("/google/callback", (req, res, next) => {
+  passport.authenticate("google", { session: false }, (err, user) => {
+    if (err || !user) {
+      console.error("Google OAuth callback error:", err?.message || "No user returned");
+      return res.redirect(`${process.env.CLIENT_URL}/login?error=oauth_failed`);
+    }
+    // Successful authentication, generate token and redirect
+    const token = generateToken(user._id);
+    setTokenCookie(res, token);
     res.redirect(`${process.env.CLIENT_URL}/oauth-success?token=${token}`);
-  }
-);
+  })(req, res, next);
+});
 
 export default router;
