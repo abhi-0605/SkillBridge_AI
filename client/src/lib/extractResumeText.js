@@ -1,6 +1,6 @@
 import { extractTextFromPdf } from './pdfParser.js'
 import { extractTextFromDocx } from './docxParser.js'
-import { extractTextviaOCR } from './ocrParser.js'
+import { extractTextViaOCR } from './ocrParser.js'
 
 export const extractResumeText = async (file, onProgress) => {
     const ext = file.name.split('.').pop().toLowerCase()
@@ -10,7 +10,7 @@ export const extractResumeText = async (file, onProgress) => {
 
         // If the extracted text is empty, fallback to OCR
         if(text.trim().length <50){
-            const ocrText = await extractTextviaOCR(file, onProgress)
+            const ocrText = await extractTextViaOCR(file, onProgress)
             return {text: ocrText, fileType:'pdf',usedOCR:true}
         }
 
