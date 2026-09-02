@@ -41,7 +41,7 @@ const REPORT_SCHEMA = {
             recommendations: { type: "array", items: { type: "string" } },
         },
         required: ["summary", "strengths", "weaknesses", "recommendations"],
-        additionalProperties: false,
+        
     },
 };
 
