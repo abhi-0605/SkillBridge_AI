@@ -1,7 +1,7 @@
 import * as pdfjsLib from 'pdfjs-dist'
 import Tesseract from 'tesseract.js'
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@6.1.200/build/pdf.worker.min.mjs`
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@6.3.289/build/pdf.worker.min.mjs`
 
 export const extractTextViaOCR = async (file, onProgress) => {
   const arrayBuffer = await file.arrayBuffer()
