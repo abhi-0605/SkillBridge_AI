@@ -26,6 +26,7 @@ export const callGroq = async (prompt, { json = false, schema = null } = {}) => 
         model: GROQ_MODEL,
         messages: [{ role: "user", content: prompt }],
         response_format,
+        max_tokens: 2048,
       },
       {
         headers: {
