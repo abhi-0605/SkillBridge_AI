@@ -12,7 +12,7 @@ const makeRequest = async (prompt, response_format) => {
       model: GROQ_MODEL,
       messages: [{ role: "user", content: prompt }],
       response_format,
-      max_tokens: 1024,
+      max_tokens: 2048,
     },
     {
       headers: {
