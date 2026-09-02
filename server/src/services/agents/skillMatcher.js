@@ -189,9 +189,21 @@ const isMatch = (a, b) => {
   return false
 }
 
+
+// Match resume keywords against JD keywords, returning matched, missing, and extra skills
 export const matchSkills = (resumeKeywords, jdKeywords) => {
   const normalizedResume = resumeKeywords.map((k) => ({ original: k, norm: normalize(k) }))
-  const normalizedJD = jdKeywords.map((k) => ({ original: k, norm: normalize(k) }))
+
+  // Deduplicate JD keywords that normalize to the same skill (e.g. "HTML" and "HTML5"
+  // both meaning the same thing) — keep only the first original label for each unique meaning
+  const seenNorms = new Set()
+  const normalizedJD = jdKeywords
+    .map((k) => ({ original: k, norm: normalize(k) }))
+    .filter((jd) => {
+      if (seenNorms.has(jd.norm)) return false
+      seenNorms.add(jd.norm)
+      return true
+    })
 
   const matchedSkills = []
   const missingSkills = []
