@@ -6,7 +6,7 @@ import { Sparkles, Mail, Globe, MessageCircle } from "lucide-react";
 
 const Footer = () => {
     return (
-        <footer className='relative mt-32 border-t border-border/60' >
+        <footer className='relative mt-32 border-t border-border/60 bg-white' >
             <div className='mx-auto max-w-[1400px] px-6 py-16' >
                 <div className='grid gap-12 md:grid-cols-4' >
                     <div className='md:col-span-2' >
@@ -22,15 +22,15 @@ const Footer = () => {
                         </p>
                         <div className='mt-6 flex gap-3' >
                             {[Mail, Globe, MessageCircle].map((Icon, i) => (
-                                <a key={i} href='#' className='grid h-10 w-10 cursor-pointer place-items-center rounded-xl border border-border bg-white/5 text-muted-foreground transition hover:bg-white/10 hover:text-foreground' >
+                                <a key={i} href='#' className='grid h-10 w-10 cursor-pointer place-items-center rounded-xl border border-border bg-white text-muted-foreground transition hover:border-primary hover:text-primary' >
                                     <Icon className='h-4 w-4' />
                                 </a>
-                            ))} 
+                            ))}
                         </div>
                     </div>
 
                     <div>
-                        <h2 className='mb-4 text-sm font-semibold' >Product</h2>
+                        <h2 className='mb-4 text-sm font-semibold text-foreground' >Product</h2>
                         <ul className='space-y-3 text-sm text-muted-foreground'>
                             <li><a href='#features' className='hover:text-foreground' ></a></li>
                             <li><a href='#how' className='hover:text-foreground' > How it works</a></li>
@@ -39,7 +39,7 @@ const Footer = () => {
                     </div>
 
                     <div>
-                        <h2 className='mb-4 text-sm font-semibold' >Company</h2>
+                        <h2 className='mb-4 text-sm font-semibold text-foreground' >Company</h2>
                         <ul className='space-y-3 text-sm text-muted-foreground' >
                             <li><a href='#' className='hover:text-foreground' >About</a></li>
                             <li><a href='#' className='hover:text-foreground' >Privacy</a></li>

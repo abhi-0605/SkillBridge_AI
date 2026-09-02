@@ -22,8 +22,9 @@ const Navbar = () => {
 
     return (
         <header
-            className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl transition-colors ${scrolled ? 'border-border bg-background/70' : 'border-transparent bg-transparent'
-                }`}
+            className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl transition-colors ${
+            scrolled ? 'border-border bg-white/90' : 'border-transparent bg-white/60'
+            }`}
 
         >
             <div className='mx-auto flex h-16 max-w-[1400px] items-center justify-between px-6' >
@@ -46,7 +47,7 @@ const Navbar = () => {
 
 
                 <div className='hidden items-center gap-3 md:flex' >
-                    <Link to='/login' className='cursor-pointer text-sm text-muted-foreground hover:text-foreground' >
+                    <Link to='/login' className='cursor-pointer text-sm text-foreground hover:text-primary' >
                         Sign in
                     </Link>
                     <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
