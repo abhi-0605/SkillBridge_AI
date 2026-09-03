@@ -98,32 +98,31 @@ const AnalysisDetailPage = () => {
 
 
             {report && (
-                <div className='glass rounded-2xl p-6' >
-                    <div className='mb-4 flex items-center gap-2' >
+                <div className='rounded-2xl border border-border bg-white p-6 shadow-sm'>
+                    <div className='mb-4 flex items-center gap-2'>
                         <Zap className='h-4 w-4 text-warning' />
-                        <h2 className=' font-semibold' >AI report</h2>
+                        <h2 className='font-semibold text-foreground'>AI Report</h2>
                     </div>
-                    <p className='text-sm text-muted-foreground' >{report.summary}</p>
+                    <p className='text-sm text-muted-foreground'>{report.summary}</p>
 
-                    <div className='mt-5 grid gap-4 md:grid-cols-2' >
+                    <div className='mt-5 grid gap-4 md:grid-cols-2'>
                         <div>
-                            <h3 className='mb-2 text-sm font-medium' >Strengths</h3>
-                            <ul className='space-y-2 text-sm text-muted-foreground' >
+                            <h3 className='mb-2 text-sm font-medium text-foreground'>Strengths</h3>
+                            <ul className='space-y-2 text-sm text-muted-foreground'>
                                 {report.strengths?.map((s, i) => <li key={i}>• {s}</li>)}
                             </ul>
                         </div>
-
-                        <div  >
-                            <h3 className='mb-2 text-sm font-medium' >Weaknesses</h3>
-                            <ul className='space-y-2 text-sm text-muted-foreground' >
+                        <div>
+                            <h3 className='mb-2 text-sm font-medium text-foreground'>Weaknesses</h3>
+                            <ul className='space-y-2 text-sm text-muted-foreground'>
                                 {report.weaknesses?.map((s, i) => <li key={i}>• {s}</li>)}
                             </ul>
                         </div>
                     </div>
 
-                    <div className='mt-5' >
-                        <h3 className='mb-2 text-sm font-medium' >Recommendations</h3>
-                        <ul className='space-y-2 text-sm text-muted-foreground' >
+                    <div className='mt-5'>
+                        <h3 className='mb-2 text-sm font-medium text-foreground'>Recommendations</h3>
+                        <ul className='space-y-2 text-sm text-muted-foreground'>
                             {report.recommendations?.map((s, i) => <li key={i}>{i + 1}. {s}</li>)}
                         </ul>
                     </div>
