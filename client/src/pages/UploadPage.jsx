@@ -30,7 +30,7 @@ const UploadPage = () => {
     setOcrProgress(null)
 
     try {
-      const { text,usedOCR } = await extractResumeText(selectedFile,(progress) =>{
+      const { text, usedOCR } = await extractResumeText(selectedFile, (progress) => {
         setOcrProgress(progress)
       })
       if (text.length < 50) {
@@ -94,31 +94,31 @@ const UploadPage = () => {
   return (
     <div className="space-y-8">
       <div>
-        <p className="text-xs uppercase tracking-[0.3em] text-muted-foreground">New analysis</p>
-        <h1 className="mt-2 text-3xl font-bold md:text-4xl">Upload resume & job description</h1>
-        <p className="mt-2 text-sm text-muted-foreground">Parsing happens right in your browser — nothing is uploaded until you run the analysis.</p>
+        <p className='text-xs uppercase tracking-[0.3em] text-primary font-medium'>New analysis</p>
+        <h1 className='mt-2 text-3xl font-bold text-foreground md:text-4xl'>Upload resume & job description</h1>
+        <p className='mt-2 text-sm text-muted-foreground'>Parsing happens right in your browser — nothing is uploaded until you run the analysis.</p>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Resume section */}
-        <div className="glass rounded-2xl p-6">
-          <div className="mb-4 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="grid h-8 w-8 place-items-center rounded-lg gradient-primary">
-                <Upload className="h-4 w-4 text-white" />
+        <div className='rounded-2xl border border-border bg-white p-6 shadow-sm'>
+          <div className='mb-4 flex items-center justify-between'>
+            <div className='flex items-center gap-2'>
+              <span className='grid h-8 w-8 place-items-center rounded-lg gradient-primary'>
+                <Upload className='h-4 w-4 text-white' />
               </span>
-              <h2 className="font-semibold">Your resume</h2>
+              <h2 className='font-semibold text-foreground'>Your resume</h2>
             </div>
-            <div className="flex rounded-lg border border-border p-0.5 text-xs">
+            <div className='flex rounded-lg border border-border bg-gray-50 p-0.5 text-xs'>
               <button
                 onClick={() => setResumeMode('file')}
-                className={`cursor-pointer rounded-md px-3 py-1.5 transition ${resumeMode === 'file' ? 'bg-white/10 text-foreground' : 'text-muted-foreground'}`}
+                className={`cursor-pointer rounded-md px-3 py-1.5 transition ${resumeMode === 'file' ? 'bg-white text-primary shadow-sm' : 'text-muted-foreground'}`}
               >
                 Upload file
               </button>
               <button
                 onClick={() => setResumeMode('paste')}
-                className={`cursor-pointer rounded-md px-3 py-1.5 transition ${resumeMode === 'paste' ? 'bg-white/10 text-foreground' : 'text-muted-foreground'}`}
+                className={`cursor-pointer rounded-md px-3 py-1.5 transition ${resumeMode === 'paste' ? 'bg-white text-primary shadow-sm' : 'text-muted-foreground'}`}
               >
                 Paste text
               </button>
@@ -129,63 +129,62 @@ const UploadPage = () => {
             <textarea
               value={pastedResume}
               onChange={(e) => setPastedResume(e.target.value)}
-              placeholder="Paste your resume text here..."
-              className="h-64 w-full resize-none rounded-2xl border border-border bg-white/[0.03] p-4 text-sm outline-none placeholder:text-muted-foreground focus:border-primary/60"
+              placeholder='Paste your resume text here...'
+              className='h-64 w-full resize-none rounded-2xl border border-border bg-gray-50 p-4 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary/60 focus:bg-white'
             />
           ) : !file ? (
             <label
               onDragOver={(e) => e.preventDefault()}
               onDrop={handleDrop}
-              className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-border bg-white/[0.02] p-12 text-center transition hover:border-primary/50 hover:bg-white/5"
+              className='flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-border bg-gray-50 p-12 text-center transition hover:border-primary/50 hover:bg-primary/5'
             >
-              <div className="animate-float grid h-16 w-16 place-items-center rounded-2xl gradient-primary shadow-lg shadow-primary/30">
-                <Upload className="h-7 w-7 text-white" />
+              <div className='animate-float grid h-16 w-16 place-items-center rounded-2xl gradient-primary shadow-lg shadow-primary/30'>
+                <Upload className='h-7 w-7 text-white' />
               </div>
-              <div className="mt-4 text-base font-medium">Drop your resume here</div>
-              <div className="text-xs text-muted-foreground">or click to browse · PDF, DOCX · max 10 MB</div>
+              <div className='mt-4 text-base font-medium text-foreground'>Drop your resume here</div>
+              <div className='text-xs text-muted-foreground'>or click to browse · PDF, DOCX · max 10 MB</div>
               <input
-                type="file"
-                className="hidden"
-                accept=".pdf,.docx"
+                type='file'
+                className='hidden'
+                accept='.pdf,.docx'
                 onChange={(e) => e.target.files?.[0] && handleFile(e.target.files[0])}
               />
-              <div className="mt-6 flex flex-wrap justify-center gap-2 text-xs text-muted-foreground">
+              <div className='mt-6 flex flex-wrap justify-center gap-2 text-xs text-muted-foreground'>
                 {['PDF', 'DOCX'].map((x) => (
-                  <span key={x} className="rounded-full border border-border bg-white/5 px-2.5 py-1">{x}</span>
+                  <span key={x} className='rounded-full border border-border bg-white px-2.5 py-1'>{x}</span>
                 ))}
               </div>
             </label>
           ) : (
-            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl border border-border bg-white/5 p-5">
-              <div className="flex items-center gap-3">
-                <div className="grid h-11 w-11 place-items-center rounded-xl gradient-primary text-white">
-                  <FileText className="h-5 w-5" />
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className='rounded-2xl border border-border bg-gray-50 p-5'>
+              <div className='flex items-center gap-3'>
+                <div className='grid h-11 w-11 place-items-center rounded-xl gradient-primary text-white'>
+                  <FileText className='h-5 w-5' />
                 </div>
-                <div className="min-w-0 flex-1">
-                  <div className="truncate text-sm font-medium">{file.name}</div>
-                  <div className="text-xs text-muted-foreground">{(file.size / 1024).toFixed(1)} KB</div>
+                <div className='min-w-0 flex-1'>
+                  <div className='truncate text-sm font-medium text-foreground'>{file.name}</div>
+                  <div className='text-xs text-muted-foreground'>{(file.size / 1024).toFixed(1)} KB</div>
                 </div>
-                <button onClick={removeFile} className="grid h-8 w-8 cursor-pointer place-items-center rounded-lg hover:bg-white/10">
-                  <X className="h-4 w-4" />
+                <button onClick={removeFile} className='grid h-8 w-8 cursor-pointer place-items-center rounded-lg text-muted-foreground hover:bg-gray-200'>
+                  <X className='h-4 w-4' />
                 </button>
               </div>
 
-              
               {parsing && (
-                <div className="mt-4 text-xs text-muted-foreground"> 
+                <div className='mt-4 text-xs text-muted-foreground'>
                   {ocrProgress !== null
-                  ? `Running OCR on scanned documents... ${Math.round(ocrProgress *100)}%`
-                  : 'Parsing file...'}
+                    ? `Running OCR on scanned document... ${Math.round(ocrProgress * 100)}%`
+                    : 'Parsing file...'}
                 </div>
               )}
 
               {parseError && (
-                <div className="mt-4 rounded-xl bg-danger/10 px-3 py-2 text-xs text-danger">{parseError}</div>
+                <div className='mt-4 rounded-xl bg-danger/10 px-3 py-2 text-xs text-danger'>{parseError}</div>
               )}
 
               {!parsing && parsedText && (
-                <div className="mt-4 flex items-center gap-2 rounded-xl bg-success/10 px-3 py-2 text-xs text-success">
-                  <CheckCircle2 className="h-4 w-4" /> Parsed successfully — {parsedText.length.toLocaleString()} characters extracted
+                <div className='mt-4 flex items-center gap-2 rounded-xl bg-success/10 px-3 py-2 text-xs text-success'>
+                  <CheckCircle2 className='h-4 w-4' /> Parsed successfully — {parsedText.length.toLocaleString()} characters extracted
                 </div>
               )}
             </motion.div>
@@ -193,36 +192,36 @@ const UploadPage = () => {
         </div>
 
         {/* JD */}
-        <div className="glass rounded-2xl p-6">
-          <div className="mb-4 flex items-center gap-2">
-            <span className="grid h-8 w-8 place-items-center rounded-lg gradient-primary">
-              <ClipboardList className="h-4 w-4 text-white" />
+        <div className='rounded-2xl border border-border bg-white p-6 shadow-sm'>
+          <div className='mb-4 flex items-center gap-2'>
+            <span className='grid h-8 w-8 place-items-center rounded-lg gradient-primary'>
+              <ClipboardList className='h-4 w-4 text-white' />
             </span>
-            <h2 className="font-semibold">Job description</h2>
+            <h2 className='font-semibold text-foreground'>Job description</h2>
           </div>
 
-          <div className="mb-3 grid grid-cols-2 gap-3">
+          <div className='mb-3 grid grid-cols-2 gap-3'>
             <input
-              type="text"
+              type='text'
               value={jdTitle}
               onChange={(e) => setJdTitle(e.target.value)}
-              placeholder="Job title (optional)"
-              className="rounded-xl border border-border bg-white/[0.03] px-3 py-2 text-sm outline-none placeholder:text-muted-foreground focus:border-primary/60"
+              placeholder='Job title (optional)'
+              className='rounded-xl border border-border bg-gray-50 px-3 py-2 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary/60 focus:bg-white'
             />
             <input
-              type="text"
+              type='text'
               value={jdCompany}
               onChange={(e) => setJdCompany(e.target.value)}
-              placeholder="Company (optional)"
-              className="rounded-xl border border-border bg-white/[0.03] px-3 py-2 text-sm outline-none placeholder:text-muted-foreground focus:border-primary/60"
+              placeholder='Company (optional)'
+              className='rounded-xl border border-border bg-gray-50 px-3 py-2 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary/60 focus:bg-white'
             />
           </div>
 
           <textarea
             value={jd}
             onChange={(e) => setJd(e.target.value)}
-            placeholder="Paste the job description here..."
-            className="h-56 w-full resize-none rounded-2xl border border-border bg-white/[0.03] p-4 text-sm outline-none placeholder:text-muted-foreground focus:border-primary/60"
+            placeholder='Paste the job description here...'
+            className='h-56 w-full resize-none rounded-2xl border border-border bg-gray-50 p-4 text-sm text-foreground outline-none placeholder:text-muted-foreground focus:border-primary/60 focus:bg-white'
           />
           <div className="mt-2 flex items-center justify-between text-xs text-muted-foreground">
             <span>{jd.length.toLocaleString()} / 20,000 characters</span>
@@ -237,11 +236,10 @@ const UploadPage = () => {
             disabled={!canSubmit || submitting}
             whileHover={{ scale: canSubmit && !submitting ? 1.01 : 1 }}
             whileTap={{ scale: canSubmit && !submitting ? 0.98 : 1 }}
-            className={`mt-5 flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium transition ${
-              canSubmit && !submitting
+            className={`mt-5 flex w-full items-center justify-center gap-2 rounded-xl py-3 text-sm font-medium transition ${canSubmit && !submitting
                 ? 'cursor-pointer gradient-primary text-white shadow-lg shadow-primary/30 hover:shadow-primary/60'
-                : 'cursor-not-allowed bg-white/5 text-muted-foreground'
-            }`}
+                : 'cursor-not-allowed bg-gray-100 text-muted-foreground'
+              }`}
           >
             {submitting ? 'Analyzing... this takes 20-40 seconds' : 'Run AI analysis'}
           </motion.button>
