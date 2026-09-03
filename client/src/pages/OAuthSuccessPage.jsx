@@ -30,7 +30,7 @@ const OAuthSuccessPage = () => {
   }, [searchParams, navigate, login])
 
   return (
-    <div className="flex min-h-dvh items-center justify-center bg-background text-muted-foreground">
+    <div className='flex min-h-dvh items-center justify-center bg-white text-muted-foreground'>
       Signing you in...
     </div>
   )

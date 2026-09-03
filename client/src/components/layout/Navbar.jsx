@@ -22,9 +22,8 @@ const Navbar = () => {
 
     return (
         <header
-            className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl transition-colors ${
-            scrolled ? 'border-border bg-white/90' : 'border-transparent bg-white/60'
-            }`}
+            className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl transition-colors ${scrolled ? 'border-border bg-white/90' : 'border-transparent bg-white/60'
+                }`}
 
         >
             <div className='mx-auto flex h-16 max-w-[1400px] items-center justify-between px-6' >
@@ -73,21 +72,17 @@ const Navbar = () => {
                     <motion.div
                         initial={{ opacity: 0, y: -8 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className='glass-strong mx-4 mb-4 rounded-2xl p-4 md:hidden'
+                        className='mx-6 mb-4 rounded-2xl border border-border bg-white p-4 shadow-lg md:hidden'
                     >
-                        <div>
+                        <div className='flex flex-col gap-3'>
                             {NAV_LINKS.map((n) => (
-                                <a key={n.href} href={n.href} onClick={() => setOpen(false)} className="rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground">
+                                <a key={n.href} href={n.href} onClick={() => setOpen(false)} className='rounded-lg px-3 py-2 text-sm text-foreground hover:bg-gray-50'>
                                     {n.label}
                                 </a>
                             ))}
                             <div className='mt-2 grid grid-cols-2 gap-2'>
-                                <Link to='/login' className='rounded-xl border border-border px-4 py-2 text-center text-sm' >
-                                    Sign in
-                                </Link>
-                                <Link to='/register' className='rounded-xl gradient-primary px-4 py-2 text-center text-sm font-medium text-white' >
-                                    Sign up
-                                </Link>
+                                <Link to='/login' className='rounded-xl border border-border px-4 py-2 text-center text-sm text-foreground'>Sign in</Link>
+                                <Link to='/register' className='rounded-xl gradient-primary px-4 py-2 text-center text-sm font-medium text-white'>Get started</Link>
                             </div>
                         </div>
                     </motion.div>

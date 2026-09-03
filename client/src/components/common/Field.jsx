@@ -5,7 +5,7 @@ const Field = ({ label, icon, action, children }) => {
     <label className="block">
       <span className="mb-1.5 block text-xs font-medium text-muted-foreground">{label}</span>
 
-      <div className="flex items-center gap-3 rounded-xl border border-border bg-white/5 px-4 py-3 transition focus-within:border-primary/60">
+      <div className='flex items-center gap-3 rounded-xl border border-border bg-gray-50 px-4 py-3 transition focus-within:border-primary/60 focus-within:bg-white'>
         {icon && <span className="text-muted-foreground">{icon}</span>}
 
 
