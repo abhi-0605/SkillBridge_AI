@@ -18,6 +18,9 @@ export const generateAIResponse = async (prompt, options = {}) => {
     
     case "openrouter":
       return callOpenRouter(prompt, options);
+
+    case "cohere":
+      return callCohere(prompt, options);
     default:
       throw new Error(`Unknown AI provider: ${PROVIDER}`);
   }

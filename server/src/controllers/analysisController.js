@@ -46,8 +46,10 @@ export const createAnalysis = async (req, res) => {
 
 
         // step-3 : run the analysis pipeline: extract keywords, match skills, calculate ATS score, generate report
-        const resumeKeywords = await extractKeywords(resume.rawText, "resume");
-        const jdKeywords = await extractKeywords(jd.rawText, "job description");
+        const [resumeKeywords, jdKeywords] = await Promise.all([
+            extractKeywords(resume.rawText, "resume"),
+            extractKeywords(jd.rawText, "job description"),
+        ]);
 
         const skillMatchResult = matchSkills(resumeKeywords, jdKeywords);
 
