@@ -2,6 +2,7 @@ import { callOllama } from "./ollamaProvider.js";
 import { callGroq } from "./groqProvider.js";
 import { callGemini } from "./geminiProvider.js";
 import { callOpenRouter } from "./openRouterProvider.js";
+import { callCohere } from "./cohereProvider.js";
 
 const PROVIDER = process.env.AI_PROVIDER || "ollama";
 

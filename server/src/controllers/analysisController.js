@@ -4,7 +4,7 @@ import Analysis from "../models/Analysis.js";
 import Report from "../models/Report.js";
 
 import { extractKeywords } from "../services/agents/keywordExtractor.js";
-import { matchSkills } from "../services/agents/skillMatcher.js";
+import { matchSkills, calculateKeywordOverlap } from "../services/agents/skillMatcher.js";
 import { calculateATSScore } from "../services/agents/atsScorer.js";
 import { generateReport } from "../services/agents/reportGenerator.js";
 
@@ -52,9 +52,10 @@ export const createAnalysis = async (req, res) => {
         ]);
 
         const skillMatchResult = matchSkills(resumeKeywords, jdKeywords);
+        const keywordMatchPercentage = calculateKeywordOverlap(resume.rawText, jdKeywords);
 
         const atsResult = calculateATSScore({
-            keywordMatchPercentage: skillMatchResult.matchPercentage,
+            keywordMatchPercentage: keywordMatchPercentage,
             skillMatchPercentage: skillMatchResult.matchPercentage,
             resumeText: resume.rawText,
         });

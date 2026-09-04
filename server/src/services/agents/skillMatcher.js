@@ -237,3 +237,15 @@ export const matchSkills = (resumeKeywords, jdKeywords) => {
     matchPercentage,
   }
 }
+
+//intentionally not using the matchSkills function here, because we want to count exact keyword matches, not fuzzy matches
+// (which tend to converge since the same AI extracts both in a similar style).
+export const calculateKeywordOverlap = (resumeText, jdKeywords) => {
+  const normalizedText = resumeText.toLowerCase()
+
+  const foundCount = jdKeywords.filter((k) =>
+    normalizedText.includes(k.toLowerCase().trim())
+  ).length
+
+  return jdKeywords.length > 0 ? Math.round((foundCount / jdKeywords.length) * 100) : 0
+}
