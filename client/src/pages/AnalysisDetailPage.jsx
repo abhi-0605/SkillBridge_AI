@@ -58,12 +58,37 @@ const AnalysisDetailPage = () => {
                             { label: 'Keyword match', value: analysis.atsScore?.breakdown?.keywordMatch },
                             { label: 'Skill match', value: analysis.atsScore?.breakdown?.skillMatch },
                             { label: 'Formatting', value: analysis.atsScore?.breakdown?.formatting },
-                        ].map((b) => (
-                            <div key={b.label} className='rounded-xl bg-gray-50 p-4'>
-                                <div className='text-2xl font-semibold text-foreground'>{b.value ?? '-'}</div>
-                                <div className='text-xs text-muted-foreground'>{b.label}</div>
-                            </div>
-                        ))}
+                        ].map((b) => {
+                            const val = b.value ?? 0
+                            const circumference = 2 * Math.PI * 32
+                            const offset = circumference - (val / 100) * circumference
+                            const color = val >= 80 ? '#22c55e' : val >= 50 ? '#f59e0b' : '#ef4444'
+
+                            return (
+                                <div key={b.label} className='flex flex-col items-center rounded-xl bg-gray-50 p-4'>
+                                    <div className='relative h-20 w-20'>
+                                        <svg className='h-20 w-20 -rotate-90' viewBox='0 0 80 80'>
+                                            <circle cx='40' cy='40' r='32' fill='none' stroke='#e5e7eb' strokeWidth='7' />
+                                            <circle
+                                                cx='40'
+                                                cy='40'
+                                                r='32'
+                                                fill='none'
+                                                stroke={color}
+                                                strokeWidth='7'
+                                                strokeDasharray={circumference}
+                                                strokeDashoffset={b.value != null ? offset : circumference}
+                                                strokeLinecap='round'
+                                            />
+                                        </svg>
+                                        <div className='absolute inset-0 flex items-center justify-center text-lg font-bold text-foreground'>
+                                            {b.value ?? '-'}
+                                        </div>
+                                    </div>
+                                    <div className='mt-2 text-xs text-muted-foreground text-center'>{b.label}</div>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
             </div>
