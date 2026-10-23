@@ -9,6 +9,8 @@ import resumeRoutes from "./routes/resumeRoutes.js";
 import jdRoutes from "./routes/jdRoutes.js";
 import analysisRoutes from "./routes/analysisRoutes.js";
 
+import {generalLimiter} from "./middleware/rateLimiter.js";
+
 const app = express();
 
 app.set("trust proxy", 1);
@@ -66,6 +68,7 @@ app.get("/api/health", (req, res) => {
 });
 
 // Routes
+app.use("/api", generalLimiter); // Apply general rate limiter to all API routes
 app.use("/api/auth", authRoutes);
 app.use("/api/resume", resumeRoutes);
 app.use("/api/jd", jdRoutes);

@@ -7,13 +7,15 @@ import { registerSchema, loginSchema } from "../validators/authValidator.js";
 import passport from "../config/passport.js";
 import generateToken, { setTokenCookie } from "../utils/generateToken.js";
 
+import { authLimiter } from "../middleware/rateLimiter.js";
+
 const router = express.Router();
 
 // @route   POST /api/auth/register
-router.post("/register", validate(registerSchema), register);
+router.post("/register", authLimiter, validate(registerSchema), register);
 
 // @route   POST /api/auth/login
-router.post("/login", validate(loginSchema), login);
+router.post("/login", authLimiter, validate(loginSchema), login);
 
 
 // @route   POST /api/auth/logout
