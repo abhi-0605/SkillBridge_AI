@@ -36,7 +36,7 @@ const analysisSchema = new mongoose.Schema(
         },
         aiProvider: {
             type: String,
-            enum: ['ollama', 'openai', 'claude', 'gemini', 'groq', 'openrouter', 'cohere'],
+            enum: ['ollama', 'openai', 'claude', 'gemini', 'groq', 'openrouter', 'cohere', 'nararouter'],
             default: 'ollama',
         },
         status: {
